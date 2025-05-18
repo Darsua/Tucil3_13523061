@@ -34,7 +34,7 @@ public class Board {
                         pieces.put(pc, new PieceHorizontal());
                 }
                 // Add point to that piece
-                pieces.get(pc).points.add(new Point(i, j));
+                pieces.get(pc).points.add(new Point(j, i));
                 occupied[i + 1][j + 1] = true;
             }
         }
@@ -57,7 +57,7 @@ public class Board {
 
         for (char pc : pieces.keySet()) {
             for (Point p : pieces.get(pc).points) {
-                cells[p.x + 1][p.y + 1] = pc;
+                cells[p.y + 1][p.x + 1] = pc;
             }
         }
 

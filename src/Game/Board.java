@@ -18,7 +18,7 @@ public class Board {
             for (int j = 0; j < cols; j++) {
                 char pc = input[i][j];
 
-                if (pc != '.') {
+                if (pc != '.') { // TODO: This doesn't check if a piece is contiguous
                     if (!pieces.containsKey(pc)) {
                         // Create new piece if a new character is found
                         if (i + 1 < rows && input[i + 1][j] == pc)

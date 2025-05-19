@@ -6,14 +6,19 @@ import Algorithm.*;
 
 import java.util.*;
 
-public class DistanceBlocked {
+public class BlockingPieces {
     public static int calculate(State state) {
         Piece primaryPiece = state.board().getPiece(State.primary);
-        int distance = getDistance(state, primaryPiece);
 
         int blockingPieces = 0;
         Set<Character> counted = new HashSet<>();
 
+        blockingPieces = getBlockingPieces(state, primaryPiece, counted, blockingPieces);
+
+        return blockingPieces;
+    }
+
+    private static int getBlockingPieces(State state, Piece primaryPiece, Set<Character> counted, int blockingPieces) {
         // Count blocking pieces in the way, penalizing immovable ones more
         switch (primaryPiece.toExit) {
             case UP -> {
@@ -53,21 +58,7 @@ public class DistanceBlocked {
                 }
             }
         }
-
-        return distance * 3 + blockingPieces;
-    }
-
-    private static int getDistance(State state, Piece primaryPiece) {
-        int distance = 0;
-
-        // Calculate straight-line distance from primary piece to exit
-        switch (primaryPiece.toExit) {
-            case UP -> distance = Math.abs(primaryPiece.getBack().y - state.board().exit.y);
-            case DOWN -> distance = Math.abs(state.board().exit.y - primaryPiece.getFront().y);
-            case LEFT -> distance = Math.abs(primaryPiece.getBack().x - state.board().exit.x);
-            case RIGHT -> distance = Math.abs(state.board().exit.x - primaryPiece.getFront().x);
-        }
-        return distance;
+        return blockingPieces;
     }
 
     private static int getPenalty(Board board, char pieceChar) {

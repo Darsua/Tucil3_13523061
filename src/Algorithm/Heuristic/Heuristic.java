@@ -1,5 +1,7 @@
 package Algorithm.Heuristic;
 
 public enum Heuristic {
-    DISTANCE_BLOCKED
+    BLOCKING_PIECES,
+    EXIT_DISTANCE,
+    BLOCKING_DISTANCE,
 }

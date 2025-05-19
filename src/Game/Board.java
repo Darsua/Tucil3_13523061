@@ -1,73 +1,109 @@
 package Game;
 
-import Game.Pieces.*;
+import Game.Piece.*;
 
-import java.util.HashMap;
+import java.util.*;
 
 public class Board {
-    private final boolean[][] occupied;
-    private final HashMap<Character, Piece> pieces;
-    private final Point exit;
+    public final char[][] cells;
+    public final HashMap<Character, Piece> pieces;
+    public final Point exit;
 
-    public Board(int rows, int cols, char[][] cells, Point exit) {
-        // +2 for walls
-        occupied = new boolean[rows + 2][cols + 2];
-        for (int i = 0; i < y(); i++) {
-            for (int j = 0; j < x(); j++) {
-                occupied[i][j] = i == 0 || j == 0 || i == y() - 1 || j == x() - 1;
-                // Make the walls occupied
-            }
-        }
+    public Board(int rows, int cols, char[][] input, Point exit) {
+        this.cells = new char[rows][cols];
+        this.exit = exit;
 
         pieces = new HashMap<>();
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                char pc = cells[i][j];
+                char pc = input[i][j];
 
-                if (pc == '.') continue;
-
-                if (!pieces.containsKey(pc)) {
-                    // Create new piece if a new character is found
-                    if (i + 1 < rows && cells[i + 1][j] == pc)
-                        pieces.put(pc, new PieceVertical());
-                    else if (j + 1 < cols && cells[i][j + 1] == pc)
-                        pieces.put(pc, new PieceHorizontal());
+                if (pc != '.') {
+                    if (!pieces.containsKey(pc)) {
+                        // Create new piece if a new character is found
+                        if (i + 1 < rows && input[i + 1][j] == pc)
+                            pieces.put(pc, new Vertical(pc, this, j, i));
+                        else if (j + 1 < cols && input[i][j + 1] == pc)
+                            pieces.put(pc, new Horizontal(pc, this, j, i));
+                    }
+                    else // Add point to existing piece
+                        pieces.get(pc).points.add(new Point(j, i));
                 }
-                // Add point to that piece
-                pieces.get(pc).points.add(new Point(j, i));
-                occupied[i + 1][j + 1] = true;
+                cells[i][j] = pc;
             }
         }
-
-        this.exit = exit;
     }
 
-    private int y() {return occupied.length;}
-    private int x() {return occupied[0].length;}
+    public Board(Board other) {
+        this.cells = new char[other.y()][other.x()];
+        for (int i = 0; i < y(); i++) {
+            System.arraycopy(other.cells[i], 0, this.cells[i], 0, x());
+        }
 
+        this.pieces = new HashMap<>();
+        for (Map.Entry<Character, Piece> entry : other.pieces.entrySet()) {
+            Piece original = entry.getValue();
+            Piece copy;
+            if (original instanceof Horizontal) {
+                copy = new Horizontal((Horizontal) original, this);
+            } else if (original instanceof Vertical) {
+                copy = new Vertical((Vertical) original, this);
+            } else {
+                throw new IllegalStateException("Unknown piece type");
+            }
+            this.pieces.put(entry.getKey(), copy);
+        }
+
+        this.exit = other.exit;
+    }
+
+    public int y() {return cells.length;}
+
+    public int x() {return cells[0].length;}
+
+    public int getPieceCount() { return pieces.size(); }
+
+    public Piece getPiece(char piece) { return pieces.get(piece); }
+
+    public char getCell(int x, int y) { return cells[y][x]; }
+
+    public boolean emptyAt(int x, int y) {
+        if (x < 0 || y < 0 || x >= x() || y >= y()) return false;
+        return cells[y][x] == '.';
+    }
+
+    public void apply(Move move) {
+        Piece piece = pieces.get(move.piece());
+        if (piece == null) return;
+
+        // Move the piece
+        piece.move(move.direction());
+    }
+
+    @Override
     public String toString() {
-        char[][] cells = new char[y()][x()];
-        for (int i = 0; i < y(); i++) {
-            for (int j = 0; j < x(); j++) {
-                cells[i][j] = occupied[i][j] ? '=' : '.'; // Wall : Empty
-            }
-        }
-
-        cells[exit.y][exit.x] = ' ';
-
-        for (char pc : pieces.keySet()) {
-            for (Point p : pieces.get(pc).points) {
-                cells[p.y + 1][p.x + 1] = pc;
-            }
-        }
-
         StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < y(); i++) {
-            for (int j = 0; j < x(); j++) {
-                builder.append(cells[i][j]).append(" ");
+        for (int i = 0; i < y() + 2; i++) {
+            for (int j = 0; j < x() + 2; j++) {
+                if (i == exit.y + 1 && j == exit.x + 1) builder.append(' ');
+                else if (i == 0 || i == y() + 1 || j == 0 || j == x() + 1) builder.append('█');
+                else builder.append(cells[i - 1][j - 1]);
             }
-            if (i < y() - 1) builder.append("\n");
+            if (i < y() + 1) builder.append("\n");
         }
         return builder.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Board other = (Board) obj;
+        return Objects.equals(this.pieces, other.pieces);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pieces);
     }
 }

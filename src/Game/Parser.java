@@ -1,6 +1,6 @@
 package Game;
 
-import Game.Pieces.*;
+import Game.Piece.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -22,8 +22,9 @@ public class Parser {
 
         // Read banyak piece (selain primary)
         line = br.readLine();
+        int n;
         try {
-            int n = Integer.parseInt(line);
+            n = Integer.parseInt(line);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid number of pieces: " + line);
         }
@@ -50,8 +51,11 @@ public class Parser {
         }
 
         // Load into board
-        Board board = new Board(x, y, bufferBoard, new Point(exitX, exitY));
-        System.out.print(board);
+        Board board = new Board(x, y, bufferBoard, new Point(exitX - 1, exitY - 1));
+
+        if (board.getPieceCount() != n)
+            throw new IllegalArgumentException("Invalid number of pieces: " + n + " != " + board.getPieceCount());
+
         return board;
     }
 }

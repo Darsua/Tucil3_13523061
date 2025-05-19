@@ -21,7 +21,7 @@ public class Solver {
         Set<Board> visited = new HashSet<>();
 
         if (board.getPiece(primary).toExit == Direction.NULL) {
-            System.out.println("Direction of primary to exit is " + board.getPiece(primary).toExit);
+            System.out.println("Primary piece is not aligned with the exit.");
             return null;
         }
 

@@ -52,13 +52,13 @@ public class Replay {
         if (watch) {
             clear();
             print();
-            System.out.println("Inital Board");
+            System.out.println("Initial Board");
 
             System.out.print("\nPress Enter to continue...");
             scanner.nextLine();
         }
 
-        fullReplay.append("Inital Board\n");
+        fullReplay.append("Initial Board\n");
         fullReplay.append(board).append("\n");
 
         int i = 1;

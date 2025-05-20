@@ -2,9 +2,7 @@ package Game;
 
 import Game.Piece.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class Parser {
     private static final char exitChar = 'K';
@@ -70,4 +68,13 @@ public class Parser {
 
         return board;
     }
+
+    public static void write(String path, String content) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
+            writer.write(content);
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
 }

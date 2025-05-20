@@ -9,6 +9,8 @@ public class Replay {
     private final Set<Point> lastMove;
     private final char primary;
 
+    public static final StringBuilder fullReplay = new StringBuilder();
+
     public static void clear() {
         try {
             if (System.getProperty("os.name").toLowerCase().contains("win")) {
@@ -40,38 +42,58 @@ public class Replay {
         }
     }
 
-    public Replay(Board board, List<Move> moves, char primary) {
+    public Replay(Board board, List<Move> moves, char primary, boolean watch) {
         this.board = board;
         this.lastMove = new HashSet<>();
         this.primary = primary;
 
-        clear();
-        print();
-        System.out.println("INITIAL STATE");
-        System.out.print("\nPress Enter to continue...");
-
         Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
 
-        for (Move move : moves) {
+        if (watch) {
             clear();
-            lastMove.clear();
-
-            for (Point p : board.getPiece(move.piece()).points)
-                lastMove.add(new Point(p.x, p.y));
-            board.apply(move);
-            for (Point p : board.getPiece(move.piece()).points)
-                lastMove.add(new Point(p.x, p.y));
-
             print();
-            System.out.println(move.piece() + " " + move.direction());
+            System.out.println("Inital Board");
 
             System.out.print("\nPress Enter to continue...");
             scanner.nextLine();
         }
 
+        fullReplay.append("Inital Board\n");
+        fullReplay.append(board).append("\n");
+
+        int i = 1;
+        for (Move move : moves) {
+            String movStr = "Move " + i + ": " +move.piece() + " " + move.direction();
+
+            if (watch) {
+                clear();
+                lastMove.clear();
+
+                for (Point p : board.getPiece(move.piece()).points)
+                    lastMove.add(new Point(p.x, p.y));
+            }
+
+            board.apply(move);
+
+            if (watch) {
+                for (Point p : board.getPiece(move.piece()).points)
+                    lastMove.add(new Point(p.x, p.y));
+
+                print();
+                System.out.println(movStr);
+
+                System.out.print("\nPress Enter to continue...");
+                scanner.nextLine();
+            }
+
+            fullReplay.append("\n").append(movStr).append("\n");
+            fullReplay.append(board).append("\n");
+
+            i++;
+        }
+
         clear();
         print();
-        System.out.println("Board completed in " + moves.size() + " moves.\n");
+        System.out.println("Board completed in " + moves.size() + " moves.");
     }
 }

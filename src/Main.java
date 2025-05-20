@@ -55,10 +55,16 @@ public class Main {
 
             if (moves != null) {
                 Scanner scanner = new Scanner(System.in);
-                System.out.print("\nPress Enter to replay moves...");
-                scanner.nextLine();
+                System.out.print("\nWatch replay? (y?): ");
 
-                new Replay(board, moves, 'P');
+                boolean watch = scanner.nextLine().equalsIgnoreCase("y");
+
+                new Replay(board, moves, 'P', watch);
+
+                String save = args[0].replace(".txt", ".replay.txt");
+                Parser.write(save, Replay.fullReplay.toString());
+                System.out.println("Replay saved to " + save + "\n");
+
             }
 
         } catch (Exception e) {

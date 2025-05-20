@@ -12,7 +12,7 @@ public class Main {
         if (args.length < 2 || args.length > 3) {
             System.out.println("\nUsage: java Main <file> <algorithm> [heuristic]\n");
             System.out.println("Algorithm: GBFS, UCS, A_STAR");
-            System.out.println("Heuristic: BLOCKING_PIECES, EXIT_DISTANCE, BLOCKING_DISTANCE\n");
+            System.out.println("Heuristic: BLOCKING_PIECES, EXIT_DISTANCE, BLOCKING_DISTANCE (default)\n");
             System.exit(0);
         }
 
@@ -33,6 +33,7 @@ public class Main {
         try {
             Replay.clear();
             Board board = Parser.parse(args[0]);
+            System.out.println(board);
 
             long startTime = System.nanoTime();
             List<Move> moves = Solver.solve(board, 'P', Algorithm.valueOf(args[1]));

@@ -10,7 +10,13 @@ public class Main {
     public static void main(String[] args) {
 
         if (args.length < 2 || args.length > 3) {
-            System.out.println("\nUsage: java Main <file> <algorithm> [heuristic]\n");
+            String command;
+            if (Objects.requireNonNull(Main.class.getResource("Main.class")).toString().startsWith("jar")) {
+                command = "java -jar Rush.jar <file> <algorithm> [heuristic]";
+            } else {
+                command = "java Main <file> <algorithm> [heuristic]";
+            }
+            System.out.println("\nUsage: " + command + "\n");
             System.out.println("Algorithm: GBFS, UCS, A_STAR");
             System.out.println("Heuristic: BLOCKING_PIECES, EXIT_DISTANCE, BLOCKING_DISTANCE (default)\n");
             System.exit(0);
@@ -31,7 +37,6 @@ public class Main {
         }
 
         try {
-            Replay.clear();
             Board board = Parser.parse(args[0]);
             System.out.println(board);
 

@@ -55,7 +55,7 @@ public class Main {
 
             if (moves != null) {
                 Scanner scanner = new Scanner(System.in);
-                System.out.print("\nWatch replay? (y?): ");
+                System.out.print("\nWatch replay? (y?) ");
 
                 boolean watch = scanner.nextLine().equalsIgnoreCase("y");
 

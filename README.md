@@ -11,17 +11,19 @@ It supports multiple search algorithms and heuristics to find solutions efficien
 - Board parsing from file
 - Solution replay in the console
 
+
 ## Usage
 
-Compile the project:
+### Option 1: Run with the JAR
+
+```
+java -jar bin/Rush.jar <file> <algorithm> [heuristic]
+```
+
+### Option 2: Compile and Run Manually
 
 ```
 javac -d out src/**/*.java
-```
-
-Run the solver:
-
-```
 java -cp out Main <file> <algorithm> [heuristic]
 ```
 
@@ -31,6 +33,10 @@ java -cp out Main <file> <algorithm> [heuristic]
 
 Example:
 
+```
+java -jar bin/Rush.jar puzzles/level1.txt A_STAR BLOCKING_DISTANCE
+```
+or
 ```
 java -cp out Main puzzles/level1.txt A_STAR BLOCKING_DISTANCE
 ```

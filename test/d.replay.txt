@@ -1,0 +1,129 @@
+Initial Board
+████████
+█AAB..F█
+█..BCDF█
+█G..CDF█
+ GH.IPP█
+█GHJI..█
+█LLJMM.█
+████████
+
+Move 1: M RIGHT
+████████
+█AAB..F█
+█..BCDF█
+█G..CDF█
+ GH.IPP█
+█GHJI..█
+█LLJ.MM█
+████████
+
+Move 2: I DOWN
+████████
+█AAB..F█
+█..BCDF█
+█G..CDF█
+ GH..PP█
+█GHJI..█
+█LLJIMM█
+████████
+
+Move 3: H UP
+████████
+█AAB..F█
+█..BCDF█
+█GH.CDF█
+ GH..PP█
+█G.JI..█
+█LLJIMM█
+████████
+
+Move 4: B DOWN
+████████
+█AA...F█
+█..BCDF█
+█GHBCDF█
+ GH..PP█
+█G.JI..█
+█LLJIMM█
+████████
+
+Move 5: H UP
+████████
+█AA...F█
+█.HBCDF█
+█GHBCDF█
+ G...PP█
+█G.JI..█
+█LLJIMM█
+████████
+
+Move 6: P LEFT
+████████
+█AA...F█
+█.HBCDF█
+█GHBCDF█
+ G..PP.█
+█G.JI..█
+█LLJIMM█
+████████
+
+Move 7: G UP
+████████
+█AA...F█
+█GHBCDF█
+█GHBCDF█
+ G..PP.█
+█..JI..█
+█LLJIMM█
+████████
+
+Move 8: P LEFT
+████████
+█AA...F█
+█GHBCDF█
+█GHBCDF█
+ G.PP..█
+█..JI..█
+█LLJIMM█
+████████
+
+Move 9: A RIGHT
+████████
+█.AA..F█
+█GHBCDF█
+█GHBCDF█
+ G.PP..█
+█..JI..█
+█LLJIMM█
+████████
+
+Move 10: P LEFT
+████████
+█.AA..F█
+█GHBCDF█
+█GHBCDF█
+ GPP...█
+█..JI..█
+█LLJIMM█
+████████
+
+Move 11: G UP
+████████
+█GAA..F█
+█GHBCDF█
+█GHBCDF█
+ .PP...█
+█..JI..█
+█LLJIMM█
+████████
+
+Move 12: P LEFT
+████████
+█GAA..F█
+█GHBCDF█
+█GHBCDF█
+ PP....█
+█..JI..█
+█LLJIMM█
+████████

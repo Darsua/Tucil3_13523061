@@ -1,0 +1,49 @@
+Initial Board
+██ █████
+█AAB..F█
+█.PBCDF█
+█GP.CDF█
+█GH.III█
+█GHJ...█
+█LLJMM.█
+████████
+
+Move 1: B DOWN
+██ █████
+█AA...F█
+█.PBCDF█
+█GPBCDF█
+█GH.III█
+█GHJ...█
+█LLJMM.█
+████████
+
+Move 2: A RIGHT
+██ █████
+█.AA..F█
+█.PBCDF█
+█GPBCDF█
+█GH.III█
+█GHJ...█
+█LLJMM.█
+████████
+
+Move 3: A RIGHT
+██ █████
+█..AA.F█
+█.PBCDF█
+█GPBCDF█
+█GH.III█
+█GHJ...█
+█LLJMM.█
+████████
+
+Move 4: P UP
+██ █████
+█.PAA.F█
+█.PBCDF█
+█G.BCDF█
+█GH.III█
+█GHJ...█
+█LLJMM.█
+████████
